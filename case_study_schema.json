@@ -1,0 +1,855 @@
+{
+  "title": "Regime shift database case study schema",
+  "description": "JSON for a case study of the Regime Shifts DataBase: https://regimeshifts.org/",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Unique identifier of the case study.",
+      "type": ["integer", "null"]
+    },
+    "creation_date": {
+      "description": "The date when the case study was created.",
+      "type": ["string", "null"],
+      "format": "date"
+    },
+    "review_status": {
+      "description": "The status of the review (to be reviewed, published...).",
+      "allOf": [{ "$ref": "#/defs/review_status" }]
+    },
+    "case_study_name": {
+      "description": "Short, succinct name for the case study (e.g. Lake Mendota).",
+      "type": ["string", "null"]
+    },
+    "main_contributors": {
+      "description": "Names of those who contributed to the text.",
+      "type": ["array", "null"],
+      "minItems": 1,
+      "items": {
+        "allOf": [{ "$ref": "#/defs/contributor" }]
+      }
+    },
+    "other_contributors": {
+      "description": "Names of those who contributed to the text or to review.",
+      "type": ["array", "null"],
+      "minItems": 0,
+      "items": {
+        "allOf": [{ "$ref": "#/defs/contributor" }]
+      }
+    },
+    "regime_shift_type": {
+      "description": "What type of regime shifts is this case study an example of (eg eutrophication)? A case study may be an example of more than one type of regime shift.",
+      "type": ["array", "null"],
+      "items": {
+        "allOf": [{ "$ref": "#/defs/regime_shift_type" }]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "ecosystem_type": {
+      "description": "Ecosystem type in which case study is located.",
+      "type": ["array", "null"],
+      "items": {
+        "allOf": [{ "$ref": "#/defs/ecosystem_type" }]
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "land_uses": {
+      "description": "Land uses in the case study.",
+      "type": ["array", "null"],
+      "items": {
+        "allOf": [{ "$ref": "#/defs/land_uses" }]
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "spatial_scale": {
+      "description": "Spatial scale of the case study.",
+      "allOf": [{ "$ref": "#/defs/spatial_scale" }]
+    },
+    "location_region": {
+      "description": "Region where the specific case study lies (e.g. Wisconsin, southern Africa).",
+      "type": ["string", "null"]
+    },
+    "location_countries": {
+      "description": "Countries in which the specific example lies.",
+      "type": ["array", "null"],
+      "items": {
+        "allOf": [{ "$ref": "#/defs/countries" }]
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "location_continent_or_ocean": {
+      "description": "Continent or Ocean where the specific case study lies.",
+      "type": ["array", "null"],
+      "items": {
+        "allOf": [{ "$ref": "#/defs/continent_or_ocean" }]
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "latitude": {
+      "description": "If the article reports a case in a specific place, please check out their longitude and latitude coordinates if not already retrieved from the paper. You can use GoogleMaps or OpenStreetMaps to find the coordinates. Once you find the place, right click on the map and you will be able to copy and paste them here in numeric form. For example, if you search Stockholm the coordinates are 59.35950, 18.03270 where the first number is the latitude (South - North) and the second number the longitude (East-West).",
+      "type": ["number", "null"],
+      "minimum": -90, 
+      "maximum": 90
+    },
+    "longitude": {
+      "description": "If the article reports a case in a specific place, please check out their longitude and latitude coordinates if not already retrieved from the paper. You can use GoogleMaps or OpenStreetMaps to find the coordinates. Once you find the place, right click on the map and you will be able to copy and paste them here in numeric form. For example, if you search Stockholm the coordinates are 59.35950, 18.03270 where the first number is the latitude (South - North) and the second number the longitude (East-West).",
+      "type": ["number", "null"],
+      "minimum": -180, 
+      "maximum": 180
+    },
+    "year_start": {
+      "description": "Date when the regime shift started ( = date of the begginning of the change in the ecosystem). If you only have the date when the regime shift started, only fill year_start and leave year_end empty.",
+      "type": ["number", "null"]
+    },
+    "year_end": {
+      "description": "Date when the regime shift ended ( = date of the end of the change in the ecosystem).",
+      "type": ["number", "null"]
+    },
+    "thresholds": {
+      "description": "The list of the thresholds provided in the references, if available.",
+      "type": ["array", "null"],
+      "minItems": 0,
+      "items": { "allOf": [{ "$ref": "#/defs/threshold" }] },
+      "uniqueItems": true
+    },
+    "linked_regime_shift_type": {
+      "description": "If it applies, the type(s) of regime shift linked to this case study.",
+      "type": ["array", "null"],
+      "items": {
+        "allOf": [{ "$ref": "#/defs/regime_shift_type" }]
+      },
+      "minItems": 0,
+      "uniqueItems": true
+    },
+    "summary": {
+      "description": "Brief summary of the case study: the type of system (eg marine, savanna, urban) the alternate regimes, when the regime shift happened, key feedbacks maintaining each regime, key drivers that caused the regime shift to happen, main impacts on ecosystem services and human well-being, and management interventions. Note key features that make the regime shift in the particular case study different from the generic case of the regime shift.",
+      "type": ["string", "null"]
+    },
+    "references": {
+      "description": "Key references to get more information about the case study.",
+      "type": ["array", "null"],
+      "minItems": 1,
+      "items": { "allOf": [{ "$ref": "#/defs/reference" }] }
+    },
+    "diagrams_and_photos_links": {
+      "description": "Diagrams or photographs that illustrate the regime shift in the particular case study. Include a caption as well as the source. Only include photos or diagrams that can be freely distributed.",
+      "type": ["array", "null"],
+      "minItems": 0,
+      "items": {
+        "description": "Links to diagram or photograph that illustrate the regime shift in the particular case study. The links must redirect to a resource that can be freely distributed (creative commons.)",
+        "type": "string"
+      }
+    },
+    "key_direct_drivers": {
+      "description": "Key direct drivers of the regime shift.",
+      "type": ["array", "null"],
+      "minItems": 0,
+      "items": { "allOf": [{ "$ref": "#/defs/drivers" }] },
+      "uniqueItems": true
+    },
+    "impacts_on_key_ecosystem_processes": {
+      "description": "Impacts on Key Ecosystem Processes.",
+      "type": ["array", "null"],
+      "minItems": 0,
+      "items": { "allOf": [{ "$ref": "#/defs/ecosystem_processes" }] },
+      "uniqueItems": true
+    },
+    "impacts_on_provisioning_services": {
+      "description": "Impacts on ecosystem services: Provisioning services.",
+      "type": ["array", "null"],
+      "minItems": 0,
+      "items": { "allOf": [{ "$ref": "#/defs/provisioning_services" }] },
+      "uniqueItems": true
+    },
+    "impacts_on_regulating_services": {
+      "description": "Impacts on ecosystem services: Regulating services.",
+      "type": ["array", "null"],
+      "minItems": 0,
+      "items": { "allOf": [{ "$ref": "#/defs/regulating_services" }] },
+      "uniqueItems": true
+    },
+    "impacts_on_cultural_services": {
+      "description": "Impacts on ecosystem services: Cultural services.",
+      "type": ["array", "null"],
+      "minItems": 0,
+      "items": { "allOf": [{ "$ref": "#/defs/cultural_services" }] },
+      "uniqueItems": true
+    },
+    "impacts_on_human_well_being": {
+      "description": "Impacts on Human Well-being.",
+      "type": ["array", "null"],
+      "minItems": 0,
+      "items": { "allOf": [{ "$ref": "#/defs/human_well_being" }] },
+      "uniqueItems": true
+    },
+    "impacts_on_sdg": {
+      "description": "Impacts on the Sustainable Development Goals (SDGs).",
+      "type": ["array", "null"],
+      "minItems": 0,
+      "items": { "allOf": [{ "$ref": "#/defs/sdg" }] },
+      "uniqueItems": true
+    },
+    "time_scale": {
+      "description": "Time scale over which RS occurred.",
+      "type": ["array", "null"],
+      "minItems": 0,
+      "items": { "allOf": [{ "$ref": "#/defs/time_scale" }] },
+      "uniqueItems": true
+    },
+    "reversibility": {
+      "description": "Reversibility of the regime shift.",
+      "allOf": [{ "$ref": "#/defs/reversibility" }]
+    },
+    "sources_of_evidence": {
+      "description": "Sources of evidence.",
+      "type": ["array", "null"],
+      "minItems": 0,
+      "items": { "allOf": [{ "$ref": "#/defs/sources_of_evidence" }] },
+      "uniqueItems": true
+    },
+    "confidence_of_existence": {
+      "description": "Confidence of the existence of the regime shift.",
+      "allOf": [{ "$ref": "#/defs/confidence" }]
+    },
+    "confidence_of_mechanism": {
+      "description": "Confidence of the mechanism underlying the regime shift.",
+      "allOf": [{ "$ref": "#/defs/confidence" }]
+    },
+    "alternate_regimes": {
+      "description": "A description of the 2 or more alternate regimes that have been observed in the case study, as well as the key features that characterize each regime. Include key references here and in the list with all the references. (max 300 words)",
+      "type": ["string", "null"]
+    },
+    "drivers_and_causes": {
+      "description": "This section contains a description of the key drivers that caused the system to shift from one regime to another regime, for each possible shift. Include key references here and in the list with all the references.",
+      "type": ["string", "null"]
+    },
+    "how_regime_shift_worked": {
+      "description": "This section describes in lay terms how the drivers and feedbacks interacted to cause the system to shift from one regime to another regime, for each possible shift. Include key references here and in the list with all the references.",
+      "type": ["string", "null"]
+    },
+    "impacts_on_ecosystem_services_and_human_well_being": {
+      "description": "This section describes the impacts of the regime shift on ecosystems, ecosystem services (provisioning, regulating, cultural) and human well-being.",
+      "type": ["string", "null"]
+    },
+    "management_options": {
+      "description": "The actions that were taken to prevent a shift to an undesirable regime or restore/encourage a shift to a desirable regime.",
+      "type": ["string", "null"]
+    },
+    "observations": {
+      "description": "Observations which won't be published with the case study.",
+      "type": ["string", "null"]
+    }
+  },
+
+
+  "defs": {
+    "review_status": {
+      "type": ["string", "null"],
+      "enum": [
+        "To be reviewed",
+        "Publishable",
+        null
+      ]
+    },
+    "regime_shift_type": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": ["string", "null"],
+          "enum": [
+            "Arctic benthos borealisation",
+            "Arctic sea-ice loss",
+            "Bivalves collapse",
+            "Bush encroachment",
+            "Coniferous to deciduous boreal forest",
+            "Coral transitions",
+            "Costal marine eutrophication",
+            "Desertification",
+            "Fisheries collapse",
+            "Floating plants",
+            "Forest to savanna",
+            "Freshwater eutrophication",
+            "Greenland ice sheet collapse",
+            "Hypoxia",
+            "Kelp transitions",
+            "Mangrove transitions",
+            "Marine eutrophication",
+            "Marine food webs",
+            "Moonson",
+            "Peatland transitions",
+            "Primary production Arctic Ocean",
+            "River channel position",
+            "Salt marshes to tidal flats",
+            "Seagrass transitions",
+            "Soil salinization",
+            "Sprawling vs compact city",
+            "Steppe to tundra",
+            "Submerged to floating plants",
+            "Thermohaline circulation",
+            "Thermokarst lake to terrestrial ecosystem",
+            "Tundra to forest",
+            "West Antarctica ice sheet collapse",
+            "Proposed & new type",
+            "To be determined",
+            "Unknown",
+            null
+          ]
+        }
+      },
+      "required": ["value"],
+      "if": {
+        "properties": {
+          "value": {
+            "const": "Proposed & new type"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "other": {
+            "type": ["string", "null"],
+            "minLength": 1,
+            "maxLength": 100
+          }
+        }
+      }
+    },
+    "ecosystem_type": {
+      "type": "string",
+      "enum": [
+        "Marine & coastal",
+        "Freshwater lakes & rivers",
+        "Temperate & boreal forest",
+        "Tropical forests",
+        "Moist savannas & woodlands",
+        "Drylands & deserts (below ~500mm rainfall/year)",
+        "Mediterranean shrub (Fynbos)",
+        "Grasslands",
+        "Tundra",
+        "Rock & ice",
+        "Agro-ecosystems",
+        "Planetary"
+      ]
+    },
+    "land_uses": {
+      "type": "string",
+      "enum": [
+        "Urban",
+        "Small-scale subsistence crop cultivation",
+        "Large-scale commercial crop cultivation",
+        "Intensive livestock production (e.g. feedlots, dairies)",
+        "Extensive livestock production (natural rangelands)",
+        "Timber production",
+        "Fisheries",
+        "Mining",
+        "Conservation",
+        "Tourism"
+      ]
+    },
+    "spatial_scale": {
+      "type": ["string", "null"],
+      "enum": [
+        "Local/landscape (e.g. lake, catchment, community)",
+        "National (country)",
+        "Sub-continental (e.g. southern Africa, Amazon basin)",
+        "Global",
+        null
+      ]
+    },
+    "countries": {
+      "type": "string",
+      "enum": [
+        "Afghanistan",
+        "Albania",
+        "Algeria",
+        "American Samoa",
+        "Andorra",
+        "Angola",
+        "Anguilla",
+        "Antarctica",
+        "Antigua and Barbuda",
+        "Argentina",
+        "Armenia",
+        "Aruba",
+        "Australia",
+        "Austria",
+        "Azerbaijan",
+        "Bahamas",
+        "Bahrain",
+        "Bangladesh",
+        "Barbados",
+        "Belarus",
+        "Belgium",
+        "Belize",
+        "Benin",
+        "Bermuda",
+        "Bhutan",
+        "Bolivia, Plurinational State of",
+        "Bonaire, Sint Eustatius and Saba",
+        "Bosnia and Herzegovina",
+        "Botswana",
+        "Bouvet Island",
+        "Brazil",
+        "British Indian Ocean Territory",
+        "Brunei Darussalam",
+        "Bulgaria",
+        "Burkina Faso",
+        "Burundi",
+        "Cambodia",
+        "Cameroon",
+        "Canada",
+        "Cape Verde",
+        "Cayman Islands",
+        "Central African Republic",
+        "Chad",
+        "Chile",
+        "China",
+        "Christmas Island",
+        "Cocos (Keeling) Islands",
+        "Colombia",
+        "Comoros",
+        "Congo",
+        "Congo, the Democratic Republic of the",
+        "Cook Islands",
+        "Costa Rica",
+        "Croatia",
+        "Cuba",
+        "Curaçao",
+        "Cyprus",
+        "Czech Republic",
+        "Côte d'Ivoire",
+        "Denmark",
+        "Djibouti",
+        "Dominica",
+        "Dominican Republic",
+        "Ecuador",
+        "Egypt",
+        "El Salvador",
+        "Equatorial Guinea",
+        "Eritrea",
+        "Estonia",
+        "Ethiopia",
+        "Falkland Islands (Malvinas)",
+        "Faroe Islands",
+        "Fiji",
+        "Finland",
+        "France",
+        "French Guiana",
+        "French Polynesia",
+        "French Southern Territories",
+        "Gabon",
+        "Gambia",
+        "Georgia",
+        "Germany",
+        "Ghana",
+        "Gibraltar",
+        "Greece",
+        "Greenland",
+        "Grenada",
+        "Guadeloupe",
+        "Guam",
+        "Guatemala",
+        "Guernsey",
+        "Guinea",
+        "Guinea-Bissau",
+        "Guyana",
+        "Haiti",
+        "Heard Island and McDonald Islands",
+        "Holy See (Vatican City State)",
+        "Honduras",
+        "Hong Kong",
+        "Hungary",
+        "Iceland",
+        "India",
+        "Indonesia",
+        "Iran, Islamic Republic of",
+        "Iraq",
+        "Ireland",
+        "Isle of Man",
+        "Israel",
+        "Italy",
+        "Jamaica",
+        "Japan",
+        "Jersey",
+        "Jordan",
+        "Kazakhstan",
+        "Kenya",
+        "Kiribati",
+        "Korea, Democratic People's Republic of (North Korea)",
+        "Korea, Republic of (South Korea)",
+        "Kuwait",
+        "Kyrgyzstan",
+        "Lao People's Democratic Republic",
+        "Latvia",
+        "Lebanon",
+        "Lesotho",
+        "Liberia",
+        "Libya",
+        "Liechtenstein",
+        "Lithuania",
+        "Luxembourg",
+        "Macao",
+        "Macedonia, the Former Yugoslav Republic of",
+        "Madagascar",
+        "Malawi",
+        "Malaysia",
+        "Maldives",
+        "Mali",
+        "Malta",
+        "Marshall Islands",
+        "Martinique",
+        "Mauritania",
+        "Mauritius",
+        "Mayotte",
+        "Mexico",
+        "Micronesia, Federated States of",
+        "Moldova, Republic of",
+        "Monaco",
+        "Mongolia",
+        "Montenegro",
+        "Montserrat",
+        "Morocco",
+        "Mozambique",
+        "Myanmar",
+        "Namibia",
+        "Nauru",
+        "Nepal",
+        "Netherlands",
+        "New Caledonia",
+        "New Zealand",
+        "Nicaragua",
+        "Niger",
+        "Nigeria",
+        "Niue",
+        "Norfolk Island",
+        "Northern Mariana Islands",
+        "Norway",
+        "Oman",
+        "Pakistan",
+        "Palau",
+        "Palestine, State of",
+        "Panama",
+        "Papua New Guinea",
+        "Paraguay",
+        "Peru",
+        "Philippines",
+        "Pitcairn",
+        "Poland",
+        "Portugal",
+        "Puerto Rico",
+        "Qatar",
+        "Romania",
+        "Russian Federation",
+        "Rwanda",
+        "Réunion",
+        "Saint Barthélemy",
+        "Saint Helena, Ascension and Tristan da Cunha",
+        "Saint Kitts and Nevis",
+        "Saint Lucia",
+        "Saint Martin (French part)",
+        "Saint Pierre and Miquelon",
+        "Saint Vincent and the Grenadines",
+        "Samoa",
+        "San Marino",
+        "Sao Tome and Principe",
+        "Saudi Arabia",
+        "Senegal",
+        "Serbia",
+        "Seychelles",
+        "Sierra Leone",
+        "Singapore",
+        "Sint Maarten (Dutch part)",
+        "Slovakia",
+        "Slovenia",
+        "Solomon Islands",
+        "Somalia",
+        "South Africa",
+        "South Georgia and the South Sandwich Islands",
+        "South Sudan",
+        "Spain",
+        "Sri Lanka",
+        "Sudan",
+        "Suriname",
+        "Svalbard and Jan Mayen",
+        "Swaziland",
+        "Sweden",
+        "Switzerland",
+        "Syrian Arab Republic",
+        "Republic of China (Taiwan)",
+        "Tajikistan",
+        "Tanzania, United Republic of",
+        "Thailand",
+        "Timor-Leste",
+        "Togo",
+        "Tokelau",
+        "Tonga",
+        "Trinidad and Tobago",
+        "Tunisia",
+        "Turkey",
+        "Turkmenistan",
+        "Turks and Caicos Islands",
+        "Tuvalu",
+        "Uganda",
+        "Ukraine",
+        "United Arab Emirates",
+        "United Kingdom",
+        "United States",
+        "United States Minor Outlying Islands",
+        "Uruguay",
+        "Uzbekistan",
+        "Vanuatu",
+        "Venezuela, Bolivarian Republic of",
+        "Viet Nam",
+        "Virgin Islands, British",
+        "Virgin Islands, U.S.",
+        "Wallis and Futuna",
+        "Western Sahara",
+        "Yemen",
+        "Zambia",
+        "Zimbabwe",
+        "Åland Islands"
+      ]
+    },
+    "continent_or_ocean": {
+      "type": "string",
+      "enum": [
+        "Africa",
+        "Antarctica",
+        "Asia",
+        "Australia & New Zealand",
+        "Europe",
+        "North America",
+        "Central America",
+        "South America",
+        "Arctic Ocean",
+        "Atlantic Ocean",
+        "Indian Ocean",
+        "Pacific Ocean",
+        "Southern Ocean"
+      ]
+    },
+    "drivers": {
+      "type": "string",
+      "enum": [
+        "Vegetation conversion and habitat fragmentation",
+        "Harvest and resource consumption",
+        "External inputs (e.g. fertilizers, pest control, irrigation)",
+        "Adoption of new technology (e.g. new fishing nets)",
+        "Infrastructure development (e.g. roads, pipelines)",
+        "Species introduction or removal",
+        "Disease",
+        "Soil erosion & land degradation",
+        "Environmental shocks (e.g. fire, floods, droughts)",
+        "Global climate change"
+      ]
+    },
+    "ecosystem_processes": {
+      "type": "string",
+      "enum": [
+        "Soil formation",
+        "Primary production",
+        "Nutrient cycling",
+        "Water cycling"
+      ]
+    },
+    "provisioning_services": {
+      "type": "string",
+      "enum": [
+        "Freshwater",
+        "Food crops",
+        "Livestock",
+        "Fisheries",
+        "Wild animal and plant products",
+        "Timber",
+        "Woodfuel",
+        "Feed, fuel and fiber crops",
+        "Hydropower"
+      ]
+    },
+    "regulating_services": {
+      "type": "string",
+      "enum": [
+        "Air quality regulation",
+        "Climate regulation",
+        "Water purification",
+        "Water regulation",
+        "Regulation of soil erosion",
+        "Pest & disease regulation",
+        "Pollination",
+        "Natural hazard regulation"
+      ]
+    },
+    "cultural_services": {
+      "type": "string",
+      "enum": [
+        "Recreation",
+        "Aesthetic values",
+        "Knowledge and educational values",
+        "Spiritual and religious"
+      ]
+    },
+    "human_well_being": {
+      "type": "string",
+      "enum": [
+        "Food and nutrition",
+        "Health (e.g. toxins, disease)",
+        "Livelihoods and economic activity",
+        "Security of housing & infrastructure",
+        "Aesthetic and recreational values",
+        "Cultural identity",
+        "Social conflict",
+        "No direct impact"
+      ]
+    },
+    "sdg": {
+      "type": "string",
+      "enum": [
+        "No poverty",
+        "Zero hunger",
+        "Good health and well-being",
+        "Quality education",
+        "Gender equality",
+        "Clean water and sanitation",
+        "Affordable and clean energy",
+        "Decent work and economic growth",
+        "Industry, innovation & infrastructure",
+        "Reduced inequalities",
+        "Sustainable cities and communities",
+        "Responsible consumption and production",
+        "Climate action",
+        "Life below water",
+        "Life on land",
+        "Peace, justice and strong institutions",
+        "Partnerships for the goals"
+      ]
+    },
+    "time_scale": {
+      "type": ["string", "null"],
+      "enum": [
+        "Weeks",
+        "Months",
+        "Years",
+        "Decades",
+        "Centuries",
+        "Unknown",
+        null
+      ]
+    },
+    "reversibility": {
+      "type": ["string", "null"],
+      "enum": [
+        "Irreversible (on 100 year time scale)",
+        "Hysteretic (difficult to reverse)",
+        "Readily reversible",
+        "Unknown",
+        null
+      ]
+    },
+    "sources_of_evidence": {
+      "type": ["string", "null"],
+      "enum": [
+        "Models",
+        "Paleo-observation",
+        "Contemporary observations",
+        "Experiments",
+        "Other",
+        null
+      ]
+    },
+    "confidence": {
+      "type": ["string", "null"],
+      "enum": [
+        "Proposed",
+        "Speculative",
+        "Contested",
+        "Well established",
+        "Unknown",
+        null
+      ]
+    },
+
+    "contributor": {
+      "type": "object",
+      "description": "A person who contributed to index the case study.",
+      "properties": {
+        "name": {
+          "description": "The full name of the contributor.",
+          "type": "string"
+        },
+        "orcid": {
+          "description": "The ORCID of the contributor.",
+          "type": ["string", "null"]
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "reference": {
+      "type": "object",
+      "description": "A reference used as a source for this study case.",
+      "properties": {
+        "doi": {
+          "description": "The DOI as a link (e.g. https://doi.org/...).",
+          "type": ["string", "null"]
+        },
+        "openalex_id": {
+          "description": "The OpenAlex ID to the reference if the DOI is not available (e.g. https://openalex.org/W...).",
+          "type": ["string", "null"]
+        },
+        "link": {
+          "description": "A link to the reference if the DOI is not available (e.g. https://...).",
+          "type": ["string", "null"]
+        },
+        "title": {
+          "description": "The title of the reference.",
+          "type": ["string", "null"]
+        },
+        "authors": {
+          "description": "The authors of the reference.",
+          "type": ["string", "null"]
+        },
+        "year": {
+          "description": "The year the reference was published.",
+          "type": ["number", "null"]
+        },
+        "publisher": {
+          "description": "The publisher of the reference.",
+          "type": ["string", "null"]
+        },
+        "misc": {
+          "description": "Other information about the reference.",
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "threshold": {
+      "type": "object",
+      "description": "The information about a threshold (or tipping point).",
+      "properties": {
+        "variable": {
+          "description": "The variable on which the threshold is reported (for example temperature or dissolved oxygen).",
+          "type": ["string", "null"]
+        },
+        "value": {
+          "description": "The value if available.",
+          "type": ["number", "null"]
+        },
+        "unit": {
+          "description": "The units used by the researchers to quantify the thresholds (for example degrees Celsius or Kelvin for temperature).",
+          "type": ["string", "null"]
+        }
+      },
+      "required": [
+        "variable", "value", "unit"
+      ]
+    }
+  },
+
+  "required": [
+  ]
+}
