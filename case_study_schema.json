@@ -312,7 +312,6 @@
         "properties": {
           "other": {
             "type": ["string", "null"],
-            "minLength": 1,
             "maxLength": 100
           }
         }
