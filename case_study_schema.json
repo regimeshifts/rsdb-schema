@@ -1,6 +1,8 @@
 {
-  "title": "Regime shift database case study schema",
-  "description": "JSON for a case study of the Regime Shifts DataBase: https://regimeshifts.org/",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/regimeshifts/rsdb-schema/main/case_study_schema.json",
+  "title": "Regime Shifts DataBase case study schema",
+  "description": "JSON schema for a case study of the Regime Shifts DataBase: https://regimeshifts.org/",
   "type": "object",
   "properties": {
     "id": {
